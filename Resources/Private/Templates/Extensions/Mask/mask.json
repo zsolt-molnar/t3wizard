@@ -1,57 +1,46 @@
 {
     "tt_content": {
         "elements": {
-            "testelement": {
-                "label": "Test element",
-                "key": "testelement",
-                "shortLabel": "Test",
-                "description": "test stuff",
-                "icon": "map-signs",
+            "footer": {
+                "label": "Footer",
+                "key": "footer",
+                "shortLabel": "Footer",
+                "description": "Renders the footer section",
+                "icon": "fa-caret-square-o-down",
                 "color": "#000000",
                 "columns": [
-                    "css_class",
                     "header",
-                    "rowDescription",
-                    "tx_mask_linklabel",
-                    "tx_mask_linkitem"
+                    "tx_mask_facebooklink",
+                    "tx_mask_instagramlink",
+                    "tx_mask_simplelinks"
                 ],
                 "labels": [
                     "",
-                    "Element title",
-                    "Element Description",
-                    "Link Label",
-                    "Item Link"
-                ],
-                "options": {
-                    "2": "rte"
-                }
+                    "Facebook Link",
+                    "Instagram Link",
+                    "Footer Links"
+                ]
             }
         },
         "sql": {
-            "tx_mask_linklabel": {
+            "tx_mask_facebooklink": {
                 "tt_content": {
-                    "tx_mask_linklabel": "tinytext"
+                    "tx_mask_facebooklink": "tinytext"
                 }
             },
-            "tx_mask_linkitem": {
+            "tx_mask_instagramlink": {
                 "tt_content": {
-                    "tx_mask_linkitem": "tinytext"
+                    "tx_mask_instagramlink": "tinytext"
+                }
+            },
+            "tx_mask_simplelinks": {
+                "tt_content": {
+                    "tx_mask_simplelinks": "int(11) unsigned DEFAULT '0' NOT NULL"
                 }
             }
         },
         "tca": {
-            "tx_mask_linklabel": {
-                "config": {
-                    "type": "input",
-                    "eval": "",
-                    "size": "",
-                    "max": "",
-                    "default": ""
-                },
-                "exclude": "1",
-                "key": "linklabel"
-            },
-            "tx_mask_linkitem": {
+            "tx_mask_facebooklink": {
                 "config": {
                     "type": "input",
                     "wizards": {
@@ -68,7 +57,7 @@
                             },
                             "JSopenParams": "height=300,width=500,status=0,menubar=0,scrollbars=1",
                             "params": {
-                                "blindLinkOptions": "file,mail,folder,url"
+                                "blindLinkOptions": "file,mail,page"
                             }
                         }
                     },
@@ -76,7 +65,58 @@
                     "default": ""
                 },
                 "exclude": "1",
-                "key": "linkitem"
+                "key": "facebooklink"
+            },
+            "tx_mask_instagramlink": {
+                "config": {
+                    "type": "input",
+                    "wizards": {
+                        "_PADDING": "2",
+                        "link": {
+                            "type": "popup",
+                            "title": "Link",
+                            "icon": "link_popup.gif",
+                            "module": {
+                                "name": "wizard_element_browser",
+                                "urlParameters": {
+                                    "mode": "wizard"
+                                }
+                            },
+                            "JSopenParams": "height=300,width=500,status=0,menubar=0,scrollbars=1",
+                            "params": {
+                                "blindLinkOptions": "file,mail,page,folder"
+                            }
+                        }
+                    },
+                    "eval": "",
+                    "default": ""
+                },
+                "exclude": "1",
+                "key": "instagramlink"
+            },
+            "tx_mask_simplelinks": {
+                "config": {
+                    "type": "inline",
+                    "foreign_table": "--inlinetable--",
+                    "foreign_field": "parentid",
+                    "foreign_table_field": "parenttable",
+                    "foreign_sortby": "sorting",
+                    "appearance": {
+                        "collapseAll": "1",
+                        "levelLinksPosition": "top",
+                        "showSynchronizationLink": "1",
+                        "showPossibleLocalizationRecords": "1",
+                        "showAllLocalizationLink": "1",
+                        "useSortable": "1",
+                        "enabledControls": {
+                            "dragdrop": "1"
+                        }
+                    },
+                    "minitems": "1",
+                    "maxitems": ""
+                },
+                "exclude": "1",
+                "key": "simplelinks"
             }
         }
     },
@@ -175,6 +215,64 @@
                 "inlineParent": "tx_mask_slider",
                 "label": "Image",
                 "key": "image"
+            }
+        }
+    },
+    "tx_mask_simplelinks": {
+        "sql": {
+            "tx_mask_linklabel": {
+                "tx_mask_simplelinks": {
+                    "tx_mask_linklabel": "tinytext"
+                }
+            },
+            "tx_mask_footerlink": {
+                "tx_mask_simplelinks": {
+                    "tx_mask_footerlink": "tinytext"
+                }
+            }
+        },
+        "tca": {
+            "tx_mask_linklabel": {
+                "config": {
+                    "type": "input",
+                    "eval": "",
+                    "size": "",
+                    "max": "",
+                    "default": ""
+                },
+                "exclude": "1",
+                "inlineParent": "tx_mask_simplelinks",
+                "label": "Link Label",
+                "key": "linklabel"
+            },
+            "tx_mask_footerlink": {
+                "config": {
+                    "type": "input",
+                    "wizards": {
+                        "_PADDING": "2",
+                        "link": {
+                            "type": "popup",
+                            "title": "Link",
+                            "icon": "link_popup.gif",
+                            "module": {
+                                "name": "wizard_element_browser",
+                                "urlParameters": {
+                                    "mode": "wizard"
+                                }
+                            },
+                            "JSopenParams": "height=300,width=500,status=0,menubar=0,scrollbars=1",
+                            "params": {
+                                "blindLinkOptions": "file,mail,folder"
+                            }
+                        }
+                    },
+                    "eval": "",
+                    "default": ""
+                },
+                "exclude": "1",
+                "inlineParent": "tx_mask_simplelinks",
+                "label": "Link",
+                "key": "footerlink"
             }
         }
     }
